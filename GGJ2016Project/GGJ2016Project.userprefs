@@ -1,0 +1,17 @@
+﻿<Properties>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\PlayerMagicControl.cs">
+    <Files>
+      <File FileName="Assets\Scripts\PlayerMagicControl.cs" Line="98" Column="3" />
+      <File FileName="Assets\Scripts\Constant.cs" Line="8" Column="51" />
+      <File FileName="Assets\Scripts\ShootObj.cs" Line="30" Column="4" />
+      <File FileName="Assets\Scripts\PlayerStatus.cs" Line="18" Column="27" />
+      <File FileName="Assets\Scripts\CastUtil.cs" Line="49" Column="81" />
+      <File FileName="Assets\Scripts\MonsterObj.cs" Line="22" Column="4" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>
