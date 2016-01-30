@@ -1,13 +1,14 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\PlayerMagicControl.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/PlayerStatus.cs">
     <Files>
-      <File FileName="Assets\Scripts\PlayerMagicControl.cs" Line="98" Column="3" />
-      <File FileName="Assets\Scripts\Constant.cs" Line="8" Column="51" />
-      <File FileName="Assets\Scripts\ShootObj.cs" Line="30" Column="4" />
-      <File FileName="Assets\Scripts\PlayerStatus.cs" Line="18" Column="27" />
-      <File FileName="Assets\Scripts\CastUtil.cs" Line="49" Column="81" />
-      <File FileName="Assets\Scripts\MonsterObj.cs" Line="22" Column="4" />
+      <File FileName="Assets/Scripts/CastUtil.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/ShootObj.cs" Line="42" Column="42" />
+      <File FileName="Assets/Scripts/PlayerStatus.cs" Line="37" Column="71" />
+      <File FileName="Assets/Scripts/Constant.cs" Line="11" Column="2" />
+      <File FileName="Assets/Scripts/PlayerMagicControl.cs" Line="54" Column="1" />
+      <File FileName="Assets/Scripts/MonsterObj.cs" Line="62" Column="3" />
+      <File FileName="Assets/Scripts/GameCore.cs" Line="21" Column="16" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

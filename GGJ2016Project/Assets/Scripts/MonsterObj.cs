@@ -66,7 +66,7 @@ public class MonsterObj : MonoBehaviour
 		shoot.transform.parent =transform.parent.transform;
 		shoot.transform.localPosition = Vector3.zero;
 		shoot.transform.localScale = Vector3.one;
-		shoot.GetComponent<ShootObj>().InitShootObj(0, target.transform.position, 1.0f, damage);
+		shoot.GetComponent<ShootObj>().InitShootObj(0, target.transform.position, 1.0f, Constant.Monster_Per_Atk, type);
 	}
 }
 

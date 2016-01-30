@@ -10,19 +10,21 @@ public class ShootObj : MonoBehaviour
 
 	public int damage = 5;
 	public float currTime = 0.0f;
+	public int damageType;
 		// Use this for initialization
 		void Start ()
 		{
 	
 		}
 
-	public void InitShootObj(int team, Vector3 targetPos, float time, int damage = 5){
+	public void InitShootObj(int team, Vector3 targetPos, float time, int damage, int damageType){
 		this.originPos = transform.position;
 		this.team = team;
 		this.moveTime = time;
 		this.targetPos = targetPos;
 		this.damage = damage;
 		this.currTime = 0.0f;
+		this.damageType = damageType;
 	}
 
 		// Update is called once per frame
@@ -34,6 +36,9 @@ public class ShootObj : MonoBehaviour
 
 	void OnTriggerEnter2D(Collider2D other){
 		if(other.tag=="Player"){
+			if(other.GetComponent<PlayerStatus>().currGuard == damageType){
+				damage = 0;
+			}
 			other.GetComponent<PlayerStatus>().getDamage(damage);
 			Destroy(gameObject);
 		}

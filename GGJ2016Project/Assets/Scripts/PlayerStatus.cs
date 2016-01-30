@@ -32,13 +32,9 @@ public class PlayerStatus : MonoBehaviour
 		}
 
 	public void getDamage(int damage){
-		if(currGuard>0){
-			Debug.Log("Guard");
-			return;
-		}
-
 		if(currHp - damage < 0){
 			currHp = 0;
+			GameCore.setWinner(GetComponent<PlayerMagicControl>().team==0?1:0);
 		}else{
 			currHp = currHp-damage;
 		}
@@ -71,13 +67,20 @@ public class PlayerStatus : MonoBehaviour
 	public void consumeMana(int num){
 		currMana = (currMana-num<0?0:currMana-num);
 	}
+	public void spellMana(){
+		currMana = (currMana-Constant.Spell_Mana_Comsume<0?0:currMana-Constant.Spell_Mana_Comsume);
+	}
 
 	public void updateManaProgress(){
 		recoverMana();
 		m_progress.value = (float)currMana/(float)max_mana;
 	}
 	void recoverMana(){
-		currMana = (currMana+Constant.Standard_Mana_Recover_Speed>max_mana?max_mana:currMana+Constant.Standard_Mana_Recover_Speed);
+		if (string.IsNullOrEmpty (GetComponent<PlayerMagicControl> ().currMagic)) {
+			currMana = (currMana + Constant.Standard_Mana_Recover_Speed > max_mana ? max_mana : currMana + Constant.Standard_Mana_Recover_Speed);
+		} else {
+			currMana = (currMana + Constant.Standard_Mana_Recover_Speed*3 > max_mana ? max_mana : currMana + Constant.Standard_Mana_Recover_Speed*3);
+		}
 	}
 }
 

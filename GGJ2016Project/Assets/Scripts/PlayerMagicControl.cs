@@ -9,7 +9,7 @@ public class PlayerMagicControl : MonoBehaviour {
 	public KeyCode ElementConfirm;
 	public int team = 0;
 
-	string currMagic = "";
+	public string currMagic = "";
 	public UILabel m_labelMagicName;
 	public TweenAlpha magicTweenAlpha;
 	public TweenPosition magicTweenPosition;
@@ -32,29 +32,35 @@ public class PlayerMagicControl : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if(currMagic.Length<Constant.Max_Magic_Length){
-			if(Input.GetKeyUp(ElementA)){
-				currMagic+="A";
+		if (GameCore.currStatus == GameStatus.Normal) {
+			if (currMagic.Length < Constant.Max_Magic_Length) {
+				if (Input.GetKeyUp (ElementA)) {
+					currMagic += "A";
+					GetComponent<PlayerStatus> ().spellMana ();
+				}
+
+				if (Input.GetKeyUp (ElementB)) {
+					currMagic += "B";
+					GetComponent<PlayerStatus> ().spellMana ();
+				}
+
+				if (Input.GetKeyUp (ElementC)) {
+					currMagic += "C";
+					GetComponent<PlayerStatus> ().spellMana ();
+				}
+
+				if (Input.GetKeyUp (ElementD)) {
+					currMagic += "D";
+					GetComponent<PlayerStatus> ().spellMana ();
+				}
 			}
 
-			if(Input.GetKeyUp(ElementB)){
-				currMagic+="B";
+			if (Input.GetKeyUp (ElementConfirm)) {
+				castMagic ();
 			}
 
-			if(Input.GetKeyUp(ElementC)){
-				currMagic+="C";
-			}
-
-			if(Input.GetKeyUp(ElementD)){
-				currMagic+="D";
-			}
+			refreshSpritElements ();
 		}
-
-		if(Input.GetKeyUp(ElementConfirm)){
-			castMagic();
-		}
-
-		refreshSpritElements();
 	}
 
 	void castMagic(){
@@ -64,7 +70,7 @@ public class PlayerMagicControl : MonoBehaviour {
 				GetComponent<PlayerStatus>().consumeMana(CastUtil.getInstance().castNameDict[currMagic].consume);
 				switch(CastUtil.getInstance().castNameDict[currMagic].type){
 				case MagicType.Shoot:
-					if(!castShootObj()){
+					if(!castShootObj(CastUtil.getInstance().castNameDict[currMagic])){
 						m_labelMagicName.text = "Oh No! Anti Magic";
 						GetComponent<PlayerStatus>().clearMana();
 					}
@@ -75,7 +81,7 @@ public class PlayerMagicControl : MonoBehaviour {
 					}
 					break;
 				case MagicType.Guard:
-					GetComponent<PlayerStatus>().changeGuard(1);
+					GetComponent<PlayerStatus>().changeGuard(CastUtil.getInstance().castNameDict[currMagic].element);
 					break;
 				case MagicType.AntiMagic:
 					enermyTarget.getDebuff(1);
@@ -109,7 +115,7 @@ public class PlayerMagicControl : MonoBehaviour {
 		magicTweenPosition.PlayForward();
 	}
 
-	bool castShootObj(){
+	bool castShootObj(MagicData magic){
 		if(GetComponent<PlayerStatus>().currDebuff>0){
 			return false;
 		}else{
@@ -117,7 +123,7 @@ public class PlayerMagicControl : MonoBehaviour {
 			shoot.transform.parent = shootBeginPoint;
 			shoot.transform.localPosition = Vector3.zero;
 			shoot.transform.localScale = Vector3.one;
-			shoot.GetComponent<ShootObj>().InitShootObj(team, enermyTarget.transform.position, 1.5f);
+			shoot.GetComponent<ShootObj>().InitShootObj(team, enermyTarget.transform.position, 1.5f, magic.damage, magic.element);
 			return true;
 		}
 	}
