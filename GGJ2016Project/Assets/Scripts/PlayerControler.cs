@@ -15,6 +15,8 @@ public class PlayerControler : MonoBehaviour {
 
 	public UIProgressBar stamProgress;
 
+	public AudioClip clips;
+
 	void Start(){
 
 	}

@@ -11,6 +11,8 @@ public class ShootObj : MonoBehaviour
 	public int damage = 5;
 	public float currTime = 0.0f;
 	public int damageType;
+
+	public UISprite m_Img;
 		// Use this for initialization
 		void Start ()
 		{
@@ -25,6 +27,50 @@ public class ShootObj : MonoBehaviour
 		this.damage = damage;
 		this.currTime = 0.0f;
 		this.damageType = damageType;
+
+		if(team==0){
+			m_Img.flip=UIBasicSprite.Flip.Nothing;
+		}else{
+			m_Img.flip=UIBasicSprite.Flip.Horizontally;
+		}
+
+		if(damage<5){
+			switch(damageType){
+			case 1:
+				m_Img.spriteName="monsterfire";
+				break;
+			case 2:
+				m_Img.spriteName="monsterice";
+				break;
+			case 3:
+				m_Img.spriteName="monsterthunder";
+				break;
+			}
+		}else if(damage<18){
+			switch(damageType){
+			case 1:
+				m_Img.spriteName="littlefire";
+				break;
+			case 2:
+				m_Img.spriteName="littleice";
+				break;
+			case 3:
+				m_Img.spriteName="littlethunder";
+				break;
+			}
+		}else{
+			switch(damageType){
+			case 1:
+				m_Img.spriteName="bigfire";
+				break;
+			case 2:
+				m_Img.spriteName="bigice";
+				break;
+			case 3:
+				m_Img.spriteName="bigthunder";
+				break;
+			}
+		}
 	}
 
 		// Update is called once per frame

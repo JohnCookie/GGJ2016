@@ -73,28 +73,40 @@ public class PlayerMagicControl : MonoBehaviour {
 					if(!castShootObj(CastUtil.getInstance().castNameDict[currMagic])){
 						m_labelMagicName.text = "Oh No! Anti Magic";
 						GetComponent<PlayerStatus>().clearMana();
+						enermyTarget.fullMana();
+						AudioControler.getInstance().playFail();
+					}else{
+						AudioControler.getInstance().playShoot();
 					}
 					break;
 				case MagicType.Summon:
 					if(!summonMonster(CastUtil.getInstance().castNameDict[currMagic].element)){
 						m_labelMagicName.text = "Failed";
+						AudioControler.getInstance().playFail();
+					}else{
+						AudioControler.getInstance().playMagic();
 					}
 					break;
 				case MagicType.Guard:
 					GetComponent<PlayerStatus>().changeGuard(CastUtil.getInstance().castNameDict[currMagic].element);
+					AudioControler.getInstance().playMagic();
 					break;
 				case MagicType.AntiMagic:
 					enermyTarget.getDebuff(1);
+					AudioControler.getInstance().playMagic();
 					break;
 				case MagicType.CancelMagic:
 					enermyTarget.removeGuard();
+					AudioControler.getInstance().playMagic();
 					break;
 				}
 			}else{
 				m_labelMagicName.text= "Mana not enough";
+				AudioControler.getInstance().playFail();
 				return;
 			}
 		}else{
+			AudioControler.getInstance().playFail();
 			m_labelMagicName.text = "Failed";
 		}
 

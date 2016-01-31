@@ -17,6 +17,7 @@ public class PlayerStatus : MonoBehaviour
 	public int max_mana = 250;
 	public int currMana = 250;
 	public UIProgressBar m_progress;
+	public UIProgressBar m_hpProgress;
 		// Use this for initialization
 		void Start ()
 		{
@@ -32,17 +33,32 @@ public class PlayerStatus : MonoBehaviour
 		}
 
 	public void getDamage(int damage){
-		if(currHp - damage < 0){
+		if(currHp - damage <= 0){
 			currHp = 0;
+			AudioControler.getInstance().playDie();
 			GameCore.setWinner(GetComponent<PlayerMagicControl>().team==0?1:0);
 		}else{
 			currHp = currHp-damage;
 		}
+
 		m_labelHp.text = currHp.ToString();
+		m_hpProgress.value = (float)currHp/(float)max_hp;
+		GetComponent<PlayerMagicControl>().m_anim.Play("WizardHit");
 	}
 
 	public void changeGuard(int guardNum){
 		currGuard = guardNum;
+		switch(currGuard){
+		case 1:
+			m_spriteGuard.spriteName="fireShield";
+			break;
+		case 2:
+			m_spriteGuard.spriteName="iceShield";
+			break;
+		case 3:
+			m_spriteGuard.spriteName="thunderShield";
+			break; 
+		}
 		m_spriteGuard.enabled=true;
 		Invoke("removeGuard", Constant.Guard_Continue_Time);
 	}
@@ -61,6 +77,9 @@ public class PlayerStatus : MonoBehaviour
 		m_spriteDebuff.enabled=false;
 	}
 
+	public void fullMana(){
+		currMana=max_mana;
+	}
 	public void clearMana(){
 		currMana = 0;
 	}
@@ -77,9 +96,9 @@ public class PlayerStatus : MonoBehaviour
 	}
 	void recoverMana(){
 		if (string.IsNullOrEmpty (GetComponent<PlayerMagicControl> ().currMagic)) {
-			currMana = (currMana + Constant.Standard_Mana_Recover_Speed > max_mana ? max_mana : currMana + Constant.Standard_Mana_Recover_Speed);
+			currMana = (currMana + Constant.Standard_Mana_Recover_Speed*2 > max_mana ? max_mana : currMana + Constant.Standard_Mana_Recover_Speed*2);
 		} else {
-			currMana = (currMana + Constant.Standard_Mana_Recover_Speed*3 > max_mana ? max_mana : currMana + Constant.Standard_Mana_Recover_Speed*3);
+			currMana = (currMana + Constant.Standard_Mana_Recover_Speed > max_mana ? max_mana : currMana + Constant.Standard_Mana_Recover_Speed);
 		}
 	}
 }
