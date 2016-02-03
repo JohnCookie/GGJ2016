@@ -18,6 +18,8 @@ public class PlayerStatus : MonoBehaviour
 	public int currMana = 250;
 	public UIProgressBar m_progress;
 	public UIProgressBar m_hpProgress;
+
+	bool cantRecoverMana = false;
 		// Use this for initialization
 		void Start ()
 		{
@@ -60,6 +62,7 @@ public class PlayerStatus : MonoBehaviour
 			break; 
 		}
 		m_spriteGuard.enabled=true;
+		CancelInvoke("removeGuard");
 		Invoke("removeGuard", Constant.Guard_Continue_Time);
 	}
 	public void removeGuard(){
@@ -70,6 +73,7 @@ public class PlayerStatus : MonoBehaviour
 	public void getDebuff(int debuffNum){
 		currDebuff = debuffNum;
 		m_spriteDebuff.enabled = true;
+		CancelInvoke("removeDebuff");
 		Invoke("removeDebuff", Constant.Debuff_Continue_Time);
 	}
 	public void removeDebuff(){
@@ -82,6 +86,9 @@ public class PlayerStatus : MonoBehaviour
 	}
 	public void clearMana(){
 		currMana = 0;
+		cantRecoverMana = true;
+		CancelInvoke("resetRecoverMana");
+		Invoke("resetRecoverMana", 2.0f);
 	}
 	public void consumeMana(int num){
 		currMana = (currMana-num<0?0:currMana-num);
@@ -89,14 +96,20 @@ public class PlayerStatus : MonoBehaviour
 	public void spellMana(){
 		currMana = (currMana-Constant.Spell_Mana_Comsume<0?0:currMana-Constant.Spell_Mana_Comsume);
 	}
+	public void resetRecoverMana(){
+		cantRecoverMana = false;
+	}
 
 	public void updateManaProgress(){
 		recoverMana();
 		m_progress.value = (float)currMana/(float)max_mana;
 	}
 	void recoverMana(){
+		if(cantRecoverMana){
+			return;
+		}
 		if (string.IsNullOrEmpty (GetComponent<PlayerMagicControl> ().currMagic)) {
-			currMana = (currMana + Constant.Standard_Mana_Recover_Speed*2 > max_mana ? max_mana : currMana + Constant.Standard_Mana_Recover_Speed*2);
+			currMana = (currMana + Constant.Standard_Mana_Recover_Speed*3 > max_mana ? max_mana : currMana + Constant.Standard_Mana_Recover_Speed*3);
 		} else {
 			currMana = (currMana + Constant.Standard_Mana_Recover_Speed > max_mana ? max_mana : currMana + Constant.Standard_Mana_Recover_Speed);
 		}

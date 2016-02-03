@@ -33,7 +33,7 @@ public class PlayerMagicControl : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if (GameCore.currStatus == GameStatus.Normal) {
-			if (currMagic.Length < Constant.Max_Magic_Length) {
+			if (currMagic.Length < Constant.Max_Magic_Length && GetComponent<PlayerStatus>().currMana>=Constant.Spell_Mana_Comsume) {
 				if (Input.GetKeyUp (ElementA)) {
 					currMagic += "A";
 					GetComponent<PlayerStatus> ().spellMana ();

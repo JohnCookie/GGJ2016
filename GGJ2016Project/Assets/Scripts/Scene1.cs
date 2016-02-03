@@ -7,7 +7,10 @@ public class Scene1 : MonoBehaviour
 	public AudioClip m_bgm;
 	public TweenPosition logoTween;
 
+	public GameObject m_objHelp;
+
 	bool logoOK = false;
+	bool showInfo = false;
 
 		// Use this for initialization
 		void Start ()
@@ -22,7 +25,7 @@ public class Scene1 : MonoBehaviour
 		// Update is called once per frame
 		void Update ()
 		{
-			if(Input.GetKeyUp(KeyCode.Space)){
+			if(Input.GetKeyUp(KeyCode.Space) && !showInfo){
 				if(logoOK){
 					GoToNextScene();
 				}else{
@@ -32,6 +35,10 @@ public class Scene1 : MonoBehaviour
 					logoTween.PlayForward();
 				}
 			}
+
+			if(Input.GetKeyUp(KeyCode.H)){
+				ShowHlepInfo(!showInfo);
+			}
 		}
 
 	public void GoToNextScene(){
@@ -40,6 +47,11 @@ public class Scene1 : MonoBehaviour
 
 	public void logoAnimEnd(){
 		logoOK=true;
+	}
+
+	public void ShowHlepInfo(bool show){
+		m_objHelp.SetActive(show);
+		showInfo=!showInfo;
 	}
 }
 
